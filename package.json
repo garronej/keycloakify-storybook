@@ -5,7 +5,7 @@
     "description": "A starter/demo project for keycloakify",
     "repository": {
         "type": "git",
-        "url": "git://github.com/codegouvfr/keycloakify-starter.git"
+        "url": "git://github.com/garronej/keycloakify-storybook.git"
     },
     "scripts": {
         "start": "react-scripts start",
