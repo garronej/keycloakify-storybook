@@ -2,7 +2,7 @@ import type {ComponentMeta} from '@storybook/react';
 import KcApp from './KcApp';
 import {template} from '../../.storybook/util'
 
-const bind = template('my-extra-page-1.ftl');
+const bind = template('empty.ftl');
 
 export default {
     title: 'Theme/Template',

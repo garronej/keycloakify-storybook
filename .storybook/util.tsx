@@ -4,6 +4,7 @@ import {KcContextBase} from "keycloakify";
 import {getKcContext} from "keycloakify/lib/getKcContext";
 import {ExtendsKcContextBase} from "keycloakify/src/lib/getKcContext/getKcContextFromWindow";
 import {DeepPartial} from "keycloakify/src/lib/tools/DeepPartial";
+import { assert } from "tsafe/assert";
 
 
 export const socialProviders = [
@@ -33,7 +34,8 @@ export const template = (pageId: PageId) => {
         } as MockData
         if (!("message" in mockData)) mockData["message"] = undefined
         const {kcContext} = getKcContext<KcContextExtension>({mockPageId: pageId, mockData: [finalMockData]})
-        return <KcApp kcContext={kcContext as NonNullable<typeof kcContext>}/>
+        assert(kcContext !== undefined);
+        return <KcApp kcContext={kcContext}/>
     }
 
     return (args: MockData) => Object.assign(Template.bind({}), {args})

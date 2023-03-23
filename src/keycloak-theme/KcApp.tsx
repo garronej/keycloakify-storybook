@@ -1,23 +1,17 @@
-import "./KcApp.css";
 import { lazy, Suspense } from "react";
 import type { KcContext } from "./kcContext";
 import { useI18n } from "./i18n";
 import Fallback, { defaultKcProps, type KcProps, type PageProps } from "keycloakify";
-import Template from "./Template";
-import DefaultTemplate from "keycloakify/lib/Template";
+import {useDownloadTerms} from "keycloakify/lib/pages/Terms";
+import Template from "keycloakify/lib/Template";
+import tos_en_url from "./assets/tos_en.md";
+import tos_fr_url from "./assets/tos_fr.md";
 
 // You can uncomment this to see the values passed by the main app before redirecting.  
 //import { foo, bar } from "./valuesTransferredOverUrl";
 //console.log(`Values passed by the main app in the URL parameter:`, { foo, bar });
 
-const Login = lazy(()=> import("./pages/Login"));
-// If you can, favor register-user-profile.ftl over register.ftl, see: https://docs.keycloakify.dev/realtime-input-validation
-const Register = lazy(() => import("./pages/Register"));
-const RegisterUserProfile = lazy(() => import("./pages/RegisterUserProfile"));
-const Terms = lazy(() => import("./pages/Terms"));
-const MyExtraPage1 = lazy(() => import("./pages/MyExtraPage1"));
-const MyExtraPage2 = lazy(() => import("./pages/MyExtraPage2"));
-const Info = lazy(()=> import("keycloakify/lib/pages/Info"));
+const Empty = lazy(()=> import("./pages/Empty"));
 
 // This is like editing the theme.properties 
 // https://github.com/keycloak/keycloak/blob/11.0.3/themes/src/main/resources/theme/keycloak/login/theme.properties
@@ -35,6 +29,27 @@ export default function App(props: { kcContext: KcContext; }) {
     const { kcContext } = props;
 
     const i18n = useI18n({ kcContext });
+
+    useDownloadTerms({
+        "kcContext": kcContext as any,
+        "downloadTermMarkdown": async ({currentLanguageTag}) => {
+
+            const resource = (() => {
+                switch (currentLanguageTag) {
+                    case "fr":
+                        return tos_fr_url;
+                    default:
+                        return tos_en_url;
+                }
+            })();
+
+            // webpack5 (used via storybook) loads markdown as string, not url
+            if (resource.includes("\n")) return resource
+
+            const response = await fetch(resource);
+            return response.text();
+        },
+    });
 
     if (i18n === null) {
         //NOTE: Locales not yet downloaded, we could as well display a loading progress but it's usually a matter of milliseconds.
@@ -61,14 +76,7 @@ export default function App(props: { kcContext: KcContext; }) {
         <Suspense>
             {(() => {
                 switch (kcContext.pageId) {
-                    case "login.ftl": return <Login {...{ kcContext, ...pageProps }} />;
-                    case "register.ftl": return <Register {...{ kcContext, ...pageProps }} />;
-                    case "register-user-profile.ftl": return <RegisterUserProfile {...{ kcContext, ...pageProps }} />
-                    case "terms.ftl": return <Terms {...{ kcContext, ...pageProps }} />;
-                    case "my-extra-page-1.ftl": return <MyExtraPage1 {...{ kcContext, ...pageProps }} />;
-                    case "my-extra-page-2.ftl": return <MyExtraPage2 {...{ kcContext, ...pageProps }} />;
-                    // We choose to use the default Template for the Info page and to download the theme resources.
-                    case "info.ftl": return <Info {...{ kcContext, ...pageProps}} Template={DefaultTemplate} doFetchDefaultThemeResources={true} />;
+                    case "empty.ftl": return <Empty {...{ kcContext, ...pageProps }} />;
                     default: return <Fallback {...{ kcContext, ...pageProps }} />;
                 }
             })()}
