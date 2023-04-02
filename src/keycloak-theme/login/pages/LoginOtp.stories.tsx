@@ -1,12 +1,12 @@
 import { ComponentMeta } from '@storybook/react';
 import KcApp from '../KcApp';
-import { template } from '../../../.storybook/util'
+import { template } from '../../../../.storybook/util'
 
-const bind = template('login-password.ftl');
+const bind = template('login-otp.ftl');
 
 export default {
     kind: 'Page',
-    title: 'Theme/Pages/Login/Password',
+    title: 'Theme/Pages/Login/OTP',
     component: KcApp,
     parameters: {
         layout: 'fullscreen',

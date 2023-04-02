@@ -1,12 +1,12 @@
 import { ComponentMeta } from '@storybook/react';
 import KcApp from '../KcApp';
-import { template } from '../../../.storybook/util'
+import { template } from '../../../../.storybook/util'
 
-const bind = template('update-user-profile.ftl');
+const bind = template('webauthn-authenticate.ftl');
 
 export default {
     kind: 'Page',
-    title: 'Theme/Pages/Actions/Update User Profile',
+    title: 'Theme/Pages/Login/Webauthn',
     component: KcApp,
     parameters: {
         layout: 'fullscreen',

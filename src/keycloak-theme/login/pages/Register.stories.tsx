@@ -1,6 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
 import KcApp from '../KcApp';
-import { template } from '../../../.storybook/util'
+import { template } from '../../../../.storybook/util'
 
 const bind = template('register.ftl')
 
