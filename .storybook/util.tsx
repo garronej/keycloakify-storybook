@@ -1,11 +1,10 @@
-import type {KcContextExtension} from "keycloak-theme/kcContext";
-import KcApp from "../src/keycloak-theme/KcApp";
-import {KcContextBase} from "keycloakify";
-import {getKcContext} from "keycloakify/lib/getKcContext";
-import {ExtendsKcContextBase} from "keycloakify/src/lib/getKcContext/getKcContextFromWindow";
-import {DeepPartial} from "keycloakify/src/lib/tools/DeepPartial";
+import type {KcContext} from "keycloakify/login/kcContext";
+import {getKcContext} from "keycloakify/login/kcContext/getKcContext";
+import type {ExtendKcContext} from "keycloakify/login/kcContext/getKcContextFromWindow";
+import type {KcContextExtension} from "../src/keycloak-theme/login/kcContext";
+import KcApp from "../src/keycloak-theme/login/KcApp";
+import type {DeepPartial} from "keycloakify/src/tools/DeepPartial";
 import { assert } from "tsafe/assert";
-
 
 export const socialProviders = [
     {loginUrl: 'google', alias: 'google', providerId: 'google', displayName: 'Google'},
@@ -22,9 +21,10 @@ export const socialProviders = [
     {loginUrl: 'openshift', alias: 'openshift', providerId: 'openshift', displayName: 'OpenShift'},
 ]
 
-type PageId = (KcContextExtension | KcContextBase)['pageId']
+type PageId = (KcContextExtension | KcContext)['pageId']
+
 export const template = (pageId: PageId) => {
-    type MockData = DeepPartial<ExtendsKcContextBase<KcContextExtension>>;
+    type MockData = DeepPartial<ExtendKcContext<KcContextExtension>>;
 
     const Template = (mockData: MockData) => {
         const finalMockData = {

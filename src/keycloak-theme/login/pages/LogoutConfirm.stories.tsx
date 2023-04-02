@@ -1,12 +1,12 @@
 import { ComponentMeta } from '@storybook/react';
 import KcApp from '../KcApp';
-import { template } from '../../../.storybook/util'
+import { template } from '../../../../.storybook/util'
 
-const bind = template('webauthn-authenticate.ftl');
+const bind = template('logout-confirm.ftl');
 
 export default {
     kind: 'Page',
-    title: 'Theme/Pages/Login/Webauthn',
+    title: 'Theme/Pages/Login/Logout Confirmation',
     component: KcApp,
     parameters: {
         layout: 'fullscreen',

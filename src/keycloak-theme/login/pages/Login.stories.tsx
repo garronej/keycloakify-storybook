@@ -1,6 +1,6 @@
 import { ComponentMeta } from '@storybook/react';
 import KcApp from '../KcApp';
-import { socialProviders, template } from '../../../.storybook/util'
+import { socialProviders, template } from '../../../../.storybook/util'
 
 const bind = template('login.ftl');
 
