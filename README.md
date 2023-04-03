@@ -7,7 +7,7 @@
     <br/>
     <a href="https://starter.keycloakify.dev">Demo authenticated React SPA</a>
     -
-    <a href="https://starter.keycloakify.dev/storybook">Keycloak theme Storybook</a>
+    <a href="https://storybook.keycloakify.dev/storybook">Keycloak theme Storybook</a>
 </p>
 
 
